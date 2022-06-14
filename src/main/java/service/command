@@ -1,0 +1,3 @@
+addservice Вышивка;Срочность высокая
+printservicebyid 1
+deleteservicebyid 1
