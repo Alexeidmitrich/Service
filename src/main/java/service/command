@@ -1,3 +1,4 @@
-addservice Вышивка;Срочность высокая
+addcategory ремонт
+addservice телевизора
 printservicebyid 1
 deleteservicebyid 1

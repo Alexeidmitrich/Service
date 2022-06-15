@@ -2,63 +2,61 @@ package service.database;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import service.Service;
+import service.Category;
 import service.database.hibernate.HiberUtil;
-
-
 import java.util.List;
 
-public class ServiceDAOImpl implements ServiceDAO{
+public class CategoryDAOImpl implements CategoryDAO {
     @Override
-    public List<Service> getAllService() {
+    public List<Category> getAllCategory() {
         SessionFactory factory = HiberUtil.getSessionFactory();
         Session session = factory.openSession();
         session.beginTransaction();
-        List<Service> service = session
-                .createQuery("FROM Service")
+        List<Category> category = session
+                .createQuery("FROM Category")
                 .getResultList();
         session.getTransaction().commit();
         factory.close();
-        return  service;
+        return  category;
     }
 
-    public Service getServiceById(int id) {
-        Service service = null;
+    public Category getCategoryById(int id) {
+        Category category = null;
         SessionFactory factory = HiberUtil.getSessionFactory();
         try(Session session = factory.openSession()) {
             session.beginTransaction();
-            service = session.get(Service.class, id);
+            category = session.get(Category.class, id);
             session.getTransaction().commit();
         } catch (Exception e) {
             factory.close();
         }
-        return service;
+        return category;
     }
 
     @Override
-    public Service deleteServiceById(int id) {
-        Service service = null;
+    public Category deleteCategoryById(int id) {
+        Category category = null;
         SessionFactory factory = HiberUtil.getSessionFactory();
         try(Session session = HiberUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            service = session.get(Service.class, id);
-            if (service != null) {
-                session.delete(service);
-                System.out.println("service is deleted");
+            category = session.get(Category.class, id);
+            if (category != null) {
+                session.delete(category);
+                System.out.println("category is deleted");
             }
             session.getTransaction().commit();
         } catch (Exception e) {
             factory.close();
         }
-        return service;
+        return category;
     }
 
     @Override
-    public void save(Service service) {
+    public void save(Category category) {
         SessionFactory factory = HiberUtil.getSessionFactory();
         Session session = factory.openSession();
         session.beginTransaction();
-        session.save(service);
+        session.save(category);
         session.getTransaction().commit();
         factory.close();
     }

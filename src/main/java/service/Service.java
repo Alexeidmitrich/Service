@@ -1,28 +1,26 @@
 package service;
 
-
 import javax.persistence.*;
 
 @Entity
-public class Service{
+public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ManyToOne (optional=false, cascade=CascadeType.ALL)
+    @JoinColumn (name="idCategory")
     private int idService;
     private String title;
-    private String category;
 
-    public Service(int idService, String title, String category) {
+    public Service(int idService, String title) {
         this.idService = idService;
         this.title = title;
-        this.category = category;
     }
-
-    public Service(String title, String category){
+    public Service(String title){
         this.title = title;
-        this.category = category;
     }
-    public Service(){}
+    public Service(){
 
+    }
     public int getIdService() {
         return idService;
     }
@@ -39,14 +37,7 @@ public class Service{
         this.title = title;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-    public void printInformation(){
-        System.out.println(getIdService() + " " + getTitle() + ";" + getCategory());
+    public void printServiceInformation(){
+        System.out.println(getIdService() + " " + getTitle());
     }
 }
