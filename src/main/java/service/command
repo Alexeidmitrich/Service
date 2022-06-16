@@ -1,4 +1,4 @@
 addcategory ремонт
-addservice телевизора
+addservice телевизор
 printservicebyid 1
 deleteservicebyid 1

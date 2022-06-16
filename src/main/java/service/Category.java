@@ -1,16 +1,24 @@
 package service;
 
 
+import org.hibernate.mapping.List;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @OneToOne (optional=false, cascade=CascadeType.ALL)
-    @JoinColumn (name="idCategory")
     private int idCategory;
     private String type;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "idCategory")
+    private Set<Service> service = new HashSet<>();
+
 
     public Category(int idCategory, String type) {
         this.idCategory = idCategory;

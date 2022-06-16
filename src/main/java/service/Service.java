@@ -1,15 +1,21 @@
 package service;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "service")
 public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ManyToOne (optional=false, cascade=CascadeType.ALL)
-    @JoinColumn (name="idCategory")
+    @Column(name = "idService", nullable = true)
     private int idService;
     private String title;
+
+    @ManyToOne()
+    @JoinColumn(name = "idCategory")
+    private Category category;
 
     public Service(int idService, String title) {
         this.idService = idService;
