@@ -12,7 +12,7 @@ public class CommandTool {
     }
     public void parseCommand(String command) {
           final String addCategory = "(addcategory) ([a-zA-Z\\sа-яА-Я\\- W$0-9]+)";
-          final String addService = "(addservice) ([a-zA-Z\\sа-яА-Я\\- W$0-9]+)";
+          final String addService = "(addservice) ([a-zA-Z\\sа-яА-Я\\- W$0-9]+;[a-zA-Z\\sа-яА-Я\\- W$0-9]+)";
           final String printServiceById = "(printservicebyid) ([0-9]+)";
           final String deleteServiceById = "(deleteservicebyid) ([0-9]+)";
           Matcher matcher = isPatternMatches(command, addCategory);
@@ -28,7 +28,9 @@ public class CommandTool {
               String data = matcher.group(2);
               String[] serviceData = data.split(";");
               System.out.println(data);
-              serviceSystem.addService(serviceData[0]);
+              String serviceName = serviceData[0];
+              String categoryName = serviceData[1];
+              serviceSystem.addService(serviceName, categoryName);
               System.out.println("Ok");
         }
           matcher = isPatternMatches(command, printServiceById);

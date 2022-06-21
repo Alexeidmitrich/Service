@@ -9,15 +9,15 @@ public class ServiceSystem {
 
     private CategoryDAO categoryDAO = new CategoryDAOImpl();
     private ServiceDAO serviceDAO = new ServiceDAOImpl();
-    private ServiceDAOImpl serviceDAOImpl;
-    private CategoryDAOImpl categoryDAOImpl;
+
 
     public void addCategory(String type){
         Category category = new Category(type);
         categoryDAO.save(category);
     }
-    public void addService(String title){
-        Service service = new Service(title);
+    public void addService(String title, String categoryType){
+        Category category = categoryDAO.getCategoryByType(categoryType);
+        Service service = new Service(title, category);
         serviceDAO.save(service);
     }
     public void printServiceId(int id){

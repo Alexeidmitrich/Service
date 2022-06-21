@@ -1,20 +1,23 @@
 package service;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
-@Table(name = "service")
+@DynamicInsert
+@DynamicUpdate
+@Table(name = "services")
 public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idService", nullable = true)
+    @Column(nullable = false, length = 15)
     private int idService;
+    @Column(nullable = false, length = 25)
     private String title;
 
-    @ManyToOne()
-    @JoinColumn(name = "idCategory")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "idCategory", nullable = false)
     private Category category;
 
     public Service(int idService, String title) {
@@ -23,6 +26,11 @@ public class Service {
     }
     public Service(String title){
         this.title = title;
+    }
+
+    public Service(String title, Category category){
+        this.title = title;
+        this.category = category;
     }
     public Service(){
 
@@ -45,5 +53,9 @@ public class Service {
 
     public void printServiceInformation(){
         System.out.println(getIdService() + " " + getTitle());
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

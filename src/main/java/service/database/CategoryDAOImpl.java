@@ -60,4 +60,21 @@ public class CategoryDAOImpl implements CategoryDAO {
         session.getTransaction().commit();
         factory.close();
     }
+
+    @Override
+    public Category getCategoryByType(String type) {
+        Category category = null;
+        SessionFactory factory = HiberUtil.getSessionFactory();
+        try(Session session = factory.openSession()) {
+            session.beginTransaction();
+            category = (Category) session.createQuery("from Category WHERE type =:type")
+                    .setParameter("type", type)
+                            .getResultList()
+                    .get(0);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            factory.close();
+        }
+        return category;
+    }
 }
